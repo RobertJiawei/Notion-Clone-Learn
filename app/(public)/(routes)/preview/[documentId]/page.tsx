@@ -9,13 +9,13 @@ import { useMutation, useQuery } from "convex/react";
 import dynamic from "next/dynamic";
 import { useMemo } from "react";
 
-interface DocumentIdPageProps {
+interface PreviewPageProps {
   params: {
     documentId: Id<"documents">;
   };
 }
 
-const DocumentIdPage = ({ params }: DocumentIdPageProps) => {
+const PreviewPage = ({ params }: PreviewPageProps) => {
   const Editor = useMemo(
     () => dynamic(() => import("@/components/editor"), { ssr: false }),
     []
@@ -56,16 +56,16 @@ const DocumentIdPage = ({ params }: DocumentIdPageProps) => {
 
   return (
     <div className="pb-40">
-      <Cover url={document.coverImage} />
+      <Cover url={document.coverImage} preview />
       <div className="md:max-w-3xl lg:max-w-4xl mx-auto">
-        <Toolbar initialData={document} />
+        <Toolbar initialData={document} preview />
         <Editor
           onChange={onChange}
           initialContent={document.content}
-          editable={true}
+          editable={false}
         />
       </div>
     </div>
   );
 };
-export default DocumentIdPage;
+export default PreviewPage;
